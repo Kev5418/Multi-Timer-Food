@@ -86,15 +86,15 @@ git clone https://github.com/Kev5418/Multi-Timer-Food.git
 
 ### Pantalla Principal
 
-![Pantalla Principal](images/Captura de pantalla 2026-06-02 214916.png)
+![Pantalla Principal](images/home.png)
 
 ### Crear Temporizador
 
-![Crear Temporizador](images/Captura de pantalla 2026-06-02 215155.png)
+![Crear Temporizador](images/create-timer.png)
 
 ### Historial
 
-![Historial](images/Captura de pantalla 2026-06-02 215352.png)
+![Historial](images/history.png)
 
 ---
 
