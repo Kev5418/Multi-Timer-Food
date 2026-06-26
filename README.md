@@ -105,6 +105,16 @@ Diseñado en Figma mediante el prototipo:
 **Multi-TimerFood_Prototipo_Kevin_Yuquilema**
 
 ---
+## Funcionalidades Implementadas
+
+- Registro de usuarios mediante **Room Database**
+- Inicio de sesión con **autenticación local**
+- Validación de nombre, correo electrónico y contraseña
+- Validación del formato del correo mediante **expresión regular (Regex)**
+- Confirmación de contraseña durante el registro
+- Verificación de que el correo **no esté registrado previamente**
+- Navegación entre las pantallas de **registro**, **inicio de sesión** y **pantalla principal**
+- Acceso a la pantalla principal únicamente cuando las **credenciales son correctas**
 
 ## Estado actual del proyecto
 
