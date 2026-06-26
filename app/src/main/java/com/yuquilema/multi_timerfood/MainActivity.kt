@@ -14,8 +14,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.yuquilema.multi_timerfood.ui.theme.MultiTimerFoodTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
 
         setContent {
@@ -23,9 +25,11 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-                    Greeting(
+
+                    PantallaPrincipal(
                         modifier = Modifier.padding(innerPadding)
                     )
+
                 }
             }
         }
@@ -33,17 +37,23 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(modifier: Modifier = Modifier) {
+fun PantallaPrincipal(modifier: Modifier = Modifier) {
+
     Text(
-        text = "Multi-Timer Food\n\nGestiona múltiples temporizadores para cocinar diferentes alimentos al mismo tiempo.",
+        text =
+            "¡Bienvenido!\n\n" +
+                    "Inicio de sesión exitoso.\n\n" +
+                    "Multi-Timer Food\n\n" +
+                    "Gestiona múltiples temporizadores para cocinar diferentes alimentos al mismo tiempo.",
         modifier = modifier
     )
+
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun PreviewPantallaPrincipal() {
     MultiTimerFoodTheme {
-        Greeting()
+        PantallaPrincipal()
     }
 }
