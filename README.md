@@ -2,7 +2,7 @@
 
 ## Descripción
 
-**Multi-Timer Food** es una aplicación móvil Android diseñada para ayudar a las personas que cocinan varios alimentos al mismo tiempo. Muchas veces, al preparar diferentes platos simultáneamente, resulta difícil controlar los tiempos de cocción de cada uno, lo que puede provocar alimentos sobrecocinados o mal cocidos.
+**Multi-Timer Food** es una aplicación móvil Android diseñada para ayudar a las personas que cocinan varios alimentos al mismo tiempo. Muchas veces, al preparar diferentes platos simultáneamente, es difícil recordar los tiempos de cocción de cada uno.
 
 La aplicación permite crear y gestionar múltiples temporizadores independientes, facilitando el seguimiento de cada preparación y ayudando al usuario a organizar mejor su proceso de cocina.
 
@@ -18,7 +18,7 @@ Cuando una persona cocina varios alimentos al mismo tiempo, suele utilizar un ú
 
 ## Objetivo de la aplicación
 
-Desarrollar una aplicación Android que permita gestionar múltiples temporizadores de cocina de forma sencilla, ayudando a los usuarios a controlar los tiempos de cocción de diferentes alimentos simultáneamente y mejorando la organización durante la preparación de comidas.
+Desarrollar una aplicación Android que permita gestionar múltiples temporizadores de cocina de forma sencilla, ayudando a los usuarios a controlar los tiempos de cocción de diferentes alimentos simultáneamente.
 
 ---
 
@@ -63,6 +63,7 @@ Desarrollar una aplicación Android que permita gestionar múltiples temporizado
 * Jetpack Compose
 * Material Design 3
 * Android SDK
+* Room Database
 
 ---
 
@@ -105,28 +106,60 @@ Diseñado en Figma mediante el prototipo:
 **Multi-TimerFood_Prototipo_Kevin_Yuquilema**
 
 ---
+
 ## Funcionalidades Implementadas
 
-- Registro de usuarios mediante **Room Database**
-- Inicio de sesión con **autenticación local**
-- Validación de nombre, correo electrónico y contraseña
-- Validación del formato del correo mediante **expresión regular (Regex)**
-- Confirmación de contraseña durante el registro
-- Verificación de que el correo **no esté registrado previamente**
-- Navegación entre las pantallas de **registro**, **inicio de sesión** y **pantalla principal**
-- Acceso a la pantalla principal únicamente cuando las **credenciales son correctas**
+- ✅ Registro de usuarios mediante **Room Database**
+- ✅ Inicio de sesión con **autenticación local**
+- ✅ Validación de nombre, correo electrónico y contraseña
+- ✅ Validación del formato del correo mediante **expresión regular (Regex)**
+- ✅ Confirmación de contraseña durante el registro
+- ✅ Verificación de que el correo **no esté registrado previamente**
+- ✅ Navegación entre las pantallas de **registro**, **inicio de sesión** y **pantalla principal**
+- ✅ Acceso a la pantalla principal únicamente cuando las **credenciales son correctas**
+- ✅ Implementación de pantallas con **Jetpack Compose**
+- ✅ Creación y gestión de temporizadores
+- ✅ Inicio, pausa y reanudación de temporizadores
+- ✅ Sistema de **notificaciones** al finalizar temporizadores
+- ✅ Persistencia de datos con **Room Database**
+- ✅ Correcciones de bugs y optimizaciones
+
+---
 
 ## Estado actual del proyecto
 
-🚧 En desarrollo (MVP)
+🚧 En desarrollo (MVP - Fase final)
 
-Funcionalidades implementadas o planificadas:
+El proyecto se encuentra en fase avanzada con las funcionalidades principales implementadas:
 
-* Creación de temporizadores.
-* Gestión de múltiples temporizadores.
-* Inicio, pausa y reanudación.
-* Historial de temporizadores.
-* Interfaz desarrollada con Jetpack Compose.
+* ✅ Autenticación de usuarios
+* ✅ Creación de temporizadores
+* ✅ Gestión de múltiples temporizadores
+* ✅ Inicio, pausa y reanudación
+* ✅ Sistema de notificaciones
+* ✅ Interfaz desarrollada con Jetpack Compose
+* ⏳ Refinamientos finales y testing
+
+---
+
+## Estructura del Proyecto
+
+```
+Multi-Timer-Food/
+├── app/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/
+│   │   │   │   └── (código fuente)
+│   │   │   ├── res/
+│   │   │   └── AndroidManifest.xml
+│   ├── build.gradle
+│   └── ...
+├── gradle/
+├── build.gradle
+├── settings.gradle
+└── README.md
+```
 
 ---
 
@@ -135,3 +168,9 @@ Funcionalidades implementadas o planificadas:
 **Kevin Yuquilema**
 
 Proyecto académico desarrollado para la asignatura de Desarrollo de Aplicaciones Móviles.
+
+---
+
+## Licencia
+
+Este proyecto está disponible para uso académico.
