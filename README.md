@@ -167,7 +167,7 @@ Multi-Timer-Food/
 
 **Kevin Yuquilema**
 
-Proyecto académico desarrollado para la asignatura de Desarrollo de Aplicaciones Móviles.
+Proyecto académico desarrollado para la asignatura de Metodología de la Investigación.
 
 ---
 
