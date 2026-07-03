@@ -1,6 +1,7 @@
 package com.yuquilema.multi_timerfood.data.entity;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Objects;
@@ -13,19 +14,27 @@ public class Timer {
     private int duracionSegundos;
     private String categoria;
     private String estado = "IDLE";
+    private String notas;
+    private String sonido = "Default";
+    private String sonidoNotificacion = "default"; // NUEVO
+    private long tiempoInicioMillis = 0L;
 
     public Timer() {
     }
 
-    public Timer(int id, String nombreAlimento, int duracionSegundos, String categoria, String estado) {
+    @Ignore
+    public Timer(int id, String nombreAlimento, int duracionSegundos, String categoria, String estado, String notas, String sonido) {
         this.id = id;
         this.nombreAlimento = nombreAlimento;
         this.duracionSegundos = duracionSegundos;
         this.categoria = categoria;
         this.estado = estado;
+        this.notas = notas;
+        this.sonido = sonido;
     }
 
     // Constructor for creating new timers (id will be generated)
+    @Ignore
     public Timer(String nombreAlimento, int duracionSegundos, String categoria) {
         this.nombreAlimento = nombreAlimento;
         this.duracionSegundos = duracionSegundos;
@@ -73,16 +82,38 @@ public class Timer {
         this.estado = estado;
     }
 
+    public String getNotas() {
+        return notas;
+    }
+
+    public void setNotas(String notas) {
+        this.notas = notas;
+    }
+
+    public String getSonido() {
+        return sonido;
+    }
+
+    public void setSonido(String sonido) {
+        this.sonido = sonido;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Timer timer = (Timer) o;
-        return id == timer.id && duracionSegundos == timer.duracionSegundos && Objects.equals(nombreAlimento, timer.nombreAlimento) && Objects.equals(categoria, timer.categoria) && Objects.equals(estado, timer.estado);
+        return id == timer.id && duracionSegundos == timer.duracionSegundos && Objects.equals(nombreAlimento, timer.nombreAlimento) && Objects.equals(categoria, timer.categoria) && Objects.equals(estado, timer.estado) && Objects.equals(notas, timer.notas) && Objects.equals(sonido, timer.sonido);
     }
+
+    public String getSonidoNotificacion() { return sonidoNotificacion; }
+    public void setSonidoNotificacion(String sonidoNotificacion) { this.sonidoNotificacion = sonidoNotificacion; }
+
+    public long getTiempoInicioMillis() { return tiempoInicioMillis; }
+    public void setTiempoInicioMillis(long tiempoInicioMillis) { this.tiempoInicioMillis = tiempoInicioMillis; }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombreAlimento, duracionSegundos, categoria, estado);
+        return Objects.hash(id, nombreAlimento, duracionSegundos, categoria, estado, notas, sonido);
     }
 }

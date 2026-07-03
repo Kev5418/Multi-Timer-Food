@@ -29,4 +29,5 @@ public interface TimerDao {
 
     @Query("SELECT * FROM timers WHERE id = :timerId")
     Timer getById(int timerId);
+
 }
