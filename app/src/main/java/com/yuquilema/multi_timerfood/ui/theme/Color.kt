@@ -2,10 +2,11 @@ package com.yuquilema.multi_timerfood.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+val CreamBackground = Color(0xFFFCF1E7)
+val OrangePrimary = Color(0xFFE8842E)
+val CardBackground = Color(0xFFFFFFFF)
+val TextPrimary = Color(0xFF2B2B2B)
+val TextSecondary = Color(0xFF8A8A8A)
+val BorderColor = Color(0xFFE7DCCF)
+val GreenCheck = Color(0xFF3FAE4A)
+val RedDelete = Color(0xFFE84C3D)

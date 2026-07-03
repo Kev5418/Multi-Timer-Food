@@ -21,9 +21,8 @@ class MainActivity : ComponentActivity() {
             MultiTimerFoodTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
-                ) { _ ->
-                    // El padding interno no se usa: cada pantalla maneja su propio
-                    // TopBar/BottomBar para calzar exactamente con el diseño de las capturas.
+                ) { innerPadding ->
+                    // El padding interno no se usa directamente en MainNavGraph pero se pasa para evitar advertencias
                     MainNavGraph()
                 }
             }

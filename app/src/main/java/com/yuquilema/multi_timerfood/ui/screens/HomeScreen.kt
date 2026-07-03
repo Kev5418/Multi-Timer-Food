@@ -51,7 +51,9 @@ fun HomeScreen(
                             timer = timer,
                             onPauseResume = { timerViewModel.togglePauseResume(timer) },
                             onRestart = { timerViewModel.restartTimer(timer) },
-                            onRemove = { timerViewModel.removeTimer(timer, saveAsCompleted = true) }
+                            onRemove = {
+                                timerViewModel.removeTimer(timer, saveAsCompleted = true)
+                            },
                         )
                     }
                 }
@@ -73,9 +75,11 @@ fun HomeScreen(
 @Composable
 private fun EmptyHomeState() {
     Column(
-        modifier = Modifier.fillMaxSize().padding(32.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Icon(Icons.Filled.Timer, contentDescription = null, tint = AppColors.OrangePrimary, modifier = Modifier.size(56.dp))
         Spacer(modifier = Modifier.height(12.dp))

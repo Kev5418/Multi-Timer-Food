@@ -65,6 +65,7 @@ public class LoginActivity extends Activity {
         tilCorreo.setError(null);
         tilPassword.setError(null);
 
+        if (etCorreo.getText() == null || etPassword.getText() == null) return false;
         String correo = etCorreo.getText().toString().trim();
         String password = etPassword.getText().toString();
 
@@ -93,6 +94,7 @@ public class LoginActivity extends Activity {
 
     private void loginUser() {
 
+        if (etCorreo.getText() == null || etPassword.getText() == null) return;
         String correo = etCorreo.getText().toString().trim();
         String password = etPassword.getText().toString();
 

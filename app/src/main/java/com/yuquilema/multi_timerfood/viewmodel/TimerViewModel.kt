@@ -38,14 +38,14 @@ class TimerViewModel(application: Application) : AndroidViewModel(application) {
         category: String,
         totalSeconds: Int,
         soundEnabled: Boolean,
-        vibrationEnabled: Boolean
+        vibrationEnabled: Boolean,
     ) {
         val timer = ActiveTimer(
             foodName = foodName,
             category = category,
             totalSeconds = totalSeconds,
             soundEnabled = soundEnabled,
-            vibrationEnabled = vibrationEnabled
+            vibrationEnabled = vibrationEnabled,
         )
         activeTimers.add(timer)
         startTicking(timer)
@@ -54,7 +54,7 @@ class TimerViewModel(application: Application) : AndroidViewModel(application) {
     private fun startTicking(timer: ActiveTimer) {
         tickJobs[timer.id]?.cancel()
         tickJobs[timer.id] = viewModelScope.launch {
-            while (timer.isRunning && timer.remainingSeconds > 0) {
+            while (timer.isRunning && (timer.remainingSeconds > 0)) {
                 delay(1000)
                 if (timer.isRunning) {
                     timer.remainingSeconds -= 1

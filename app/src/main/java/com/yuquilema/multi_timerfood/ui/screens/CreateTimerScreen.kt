@@ -31,7 +31,7 @@ import com.yuquilema.multi_timerfood.viewmodel.TimerViewModel
 fun CreateTimerScreen(
     timerViewModel: TimerViewModel,
     onBack: () -> Unit,
-    onTimerSaved: () -> Unit
+    onTimerSaved: () -> Unit,
 ) {
     var foodName by remember { mutableStateOf("") }
     var hours by remember { mutableStateOf("0") }
@@ -115,8 +115,8 @@ fun CreateTimerScreen(
                     Text("Cancel", color = AppColors.OrangePrimary, fontWeight = FontWeight.Bold)
                 }
 
-                val totalSeconds = (hours.toIntOrNull() ?: 0) * 3600 +
-                    (minutes.toIntOrNull() ?: 0) * 60 +
+                val totalSeconds = ((hours.toIntOrNull() ?: 0) * 3600) +
+                    ((minutes.toIntOrNull() ?: 0) * 60) +
                     (seconds.toIntOrNull() ?: 0)
                 val canSave = foodName.isNotBlank() && selectedCategory != null && totalSeconds > 0
 
@@ -185,7 +185,10 @@ private fun CategoryFlow(selected: String?, onSelect: (String) -> Unit) {
                                 if (!isSelected) Modifier.border(1.dp, AppColors.BorderColor, RoundedCornerShape(50))
                                 else Modifier
                             )
-                            .selectable(selected = isSelected, onClick = { onSelect(category) })
+                            .selectable(
+                                selected = isSelected,
+                                onClick = { onSelect(category) },
+                            )
                             .padding(horizontal = 18.dp, vertical = 10.dp)
                     ) {
                         Text(category, fontSize = 13.sp, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal)

@@ -2,12 +2,6 @@ package com.yuquilema.multi_timerfood;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Patterns;
@@ -17,6 +11,8 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.Objects;
 
 public class RegisterActivity extends Activity {
 
@@ -52,6 +48,8 @@ public class RegisterActivity extends Activity {
         btnRegistrar.setOnClickListener(v -> {
 
             if (validateInputs()) {
+
+                if (etCorreo.getText() == null || etNombre.getText() == null || etPassword.getText() == null) return;
 
                 Usuario existente = db.usuarioDao().buscarPorCorreo(
                         etCorreo.getText().toString().trim());
@@ -101,6 +99,7 @@ public class RegisterActivity extends Activity {
         tilPassword.setError(null);
         tilConfirmarPassword.setError(null);
 
+        if (etNombre.getText() == null || etCorreo.getText() == null || etPassword.getText() == null || etConfirmarPassword.getText() == null) return false;
         String nombre = etNombre.getText().toString().trim();
         String correo = etCorreo.getText().toString().trim();
         String password = etPassword.getText().toString();
@@ -136,7 +135,7 @@ public class RegisterActivity extends Activity {
             return false;
         }
 
-        if (!password.equals(confirmar)) {
+        if (!Objects.equals(password, confirmar)) {
             tilConfirmarPassword.setError("Las contraseñas no coinciden");
             return false;
         }

@@ -39,11 +39,13 @@ fun HistoryScreen(timerViewModel: TimerViewModel) {
     var showFilterMenu by remember { mutableStateOf(false) }
 
     val filtered = timerViewModel.history.filter { item ->
-        (searchQuery.isBlank() || item.foodName.contains(searchQuery, ignoreCase = true)) &&
-            (categoryFilter == null || item.category == categoryFilter)
+        ((searchQuery.isBlank() || item.foodName.contains(searchQuery, ignoreCase = true))) &&
+            ((categoryFilter == null || item.category == categoryFilter))
     }
 
-    Column(modifier = Modifier.fillMaxSize().background(AppColors.CreamBackground)) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .background(AppColors.CreamBackground)) {
         AppTopBar(
             title = "History",
             icon = Icons.Filled.History,
@@ -52,9 +54,11 @@ fun HistoryScreen(timerViewModel: TimerViewModel) {
                     Icons.Filled.DeleteSweep,
                     contentDescription = "Borrar historial",
                     tint = Color.White,
-                    modifier = Modifier.clickable { timerViewModel.clearHistory() }
+                    modifier = Modifier.clickable {
+                        timerViewModel.clearHistory()
+                    },
                 )
-            }
+            },
         )
 
         Row(
@@ -104,7 +108,12 @@ fun HistoryScreen(timerViewModel: TimerViewModel) {
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(filtered, key = { it.id }) { item ->
-                    HistoryCard(item = item, onDelete = { timerViewModel.deleteHistoryItem(item) })
+                    HistoryCard(
+                        item = item,
+                        onDelete = {
+                            timerViewModel.deleteHistoryItem(item)
+                        },
+                    )
                 }
                 item { Spacer(modifier = Modifier.height(12.dp)) }
             }
