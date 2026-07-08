@@ -4,7 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import java.util.Locale
+import com.yuquilema.multi_timerfood.util.TimeFormatter
 import java.util.UUID
 
 /**
@@ -27,11 +27,7 @@ class ActiveTimer(
     val progress: Float
         get() = if (totalSeconds == 0) 0f else remainingSeconds / totalSeconds.toFloat()
 
-    fun formattedTime(): String {
-        val m = remainingSeconds / 60
-        val s = remainingSeconds % 60
-        return String.format(Locale.getDefault(), "%d:%02d", m, s)
-    }
+    fun formattedTime(): String = TimeFormatter.minutesSeconds(remainingSeconds)
 
     fun reset() {
         remainingSeconds = totalSeconds

@@ -23,7 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yuquilema.multi_timerfood.ui.AppColors
 import com.yuquilema.multi_timerfood.ui.components.ALL_CATEGORIES
+import com.yuquilema.multi_timerfood.ui.components.AppCard
 import com.yuquilema.multi_timerfood.ui.components.AppTopBar
+import com.yuquilema.multi_timerfood.ui.components.appOutlinedTextFieldColors
 import com.yuquilema.multi_timerfood.ui.components.categoryColor
 import com.yuquilema.multi_timerfood.viewmodel.TimerViewModel
 
@@ -57,27 +59,18 @@ fun CreateTimerScreen(
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(14.dp),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = AppColors.OrangePrimary,
-                    unfocusedBorderColor = AppColors.BorderColor
-                )
+                colors = appOutlinedTextFieldColors()
             )
 
             Spacer(modifier = Modifier.height(18.dp))
 
-            Card(
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text("Cooking time", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        TimeField("Hours", hours) { hours = it }
-                        TimeField("Minutes", minutes) { minutes = it }
-                        TimeField("Seconds", seconds) { seconds = it }
-                    }
+            AppCard {
+                Text("Cooking time", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                Spacer(modifier = Modifier.height(12.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    TimeField("Hours", hours) { hours = it }
+                    TimeField("Minutes", minutes) { minutes = it }
+                    TimeField("Seconds", seconds) { seconds = it }
                 }
             }
 
@@ -89,18 +82,12 @@ fun CreateTimerScreen(
 
             Spacer(modifier = Modifier.height(18.dp))
 
-            Card(
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text("Options", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                    Spacer(modifier = Modifier.height(12.dp))
-                    OptionRow(Icons.Filled.NotificationsActive, "Sound notification", soundEnabled) { soundEnabled = it }
-                    Spacer(modifier = Modifier.height(10.dp))
-                    OptionRow(Icons.Filled.Vibration, "Vibration", vibrationEnabled) { vibrationEnabled = it }
-                }
+            AppCard {
+                Text("Options", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                Spacer(modifier = Modifier.height(12.dp))
+                OptionRow(Icons.Filled.NotificationsActive, "Sound notification", soundEnabled) { soundEnabled = it }
+                Spacer(modifier = Modifier.height(10.dp))
+                OptionRow(Icons.Filled.Vibration, "Vibration", vibrationEnabled) { vibrationEnabled = it }
             }
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -159,10 +146,7 @@ private fun RowScope.TimeField(label: String, value: String, onValueChange: (Str
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(10.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = AppColors.OrangePrimary,
-                unfocusedBorderColor = AppColors.BorderColor
-            )
+            colors = appOutlinedTextFieldColors()
         )
     }
 }

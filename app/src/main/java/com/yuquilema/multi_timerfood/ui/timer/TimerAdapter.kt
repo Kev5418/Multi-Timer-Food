@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yuquilema.multi_timerfood.data.entity.Timer
 import com.yuquilema.multi_timerfood.databinding.ItemTimerBinding
-import java.util.Locale
+import com.yuquilema.multi_timerfood.util.TimeFormatter
 
 class TimerAdapter(
     private val onItemClick: (Timer) -> Unit,
@@ -20,7 +20,7 @@ class TimerAdapter(
         fun bind(timer: Timer) {
             binding.tvNombreAlimento.text = timer.nombreAlimento
             binding.tvCategoria.text = timer.categoria
-            binding.tvDuracion.text = formatDuracion(timer.duracionSegundos)
+            binding.tvDuracion.text = TimeFormatter.hoursMinutesSeconds(timer.duracionSegundos)
             binding.tvEstado.text = timer.estado
 
             binding.root.setOnClickListener { onItemClick(timer) }
@@ -28,13 +28,6 @@ class TimerAdapter(
                 onDeleteClick(timer)
                 true
             }
-        }
-
-        private fun formatDuracion(segundos: Int): String {
-            val h = segundos / 3600
-            val m = (segundos % 3600) / 60
-            val s = segundos % 60
-            return String.format(Locale.getDefault(), "%02d:%02d:%02d", h, m, s)
         }
     }
 

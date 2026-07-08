@@ -20,13 +20,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yuquilema.multi_timerfood.data.ActiveTimer
 import com.yuquilema.multi_timerfood.ui.AppColors
+import com.yuquilema.multi_timerfood.ui.components.AppCard
 import com.yuquilema.multi_timerfood.ui.components.AppTopBar
 import com.yuquilema.multi_timerfood.ui.components.CategoryChip
+import com.yuquilema.multi_timerfood.ui.components.EmptyState
 import com.yuquilema.multi_timerfood.viewmodel.TimerViewModel
 
 @Composable
@@ -39,7 +40,11 @@ fun HomeScreen(
             AppTopBar(title = "Multi-Timer Food", icon = Icons.Filled.Timer)
 
             if (timerViewModel.activeTimers.isEmpty()) {
-                EmptyHomeState()
+                EmptyState(
+                    icon = Icons.Filled.Timer,
+                    title = "No hay temporizadores activos",
+                    subtitle = "Toca el botón + para crear tu primer temporizador",
+                )
             } else {
                 LazyColumn(
                     modifier = Modifier.weight(1f).fillMaxWidth(),
@@ -73,35 +78,13 @@ fun HomeScreen(
 }
 
 @Composable
-private fun EmptyHomeState() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Icon(Icons.Filled.Timer, contentDescription = null, tint = AppColors.OrangePrimary, modifier = Modifier.size(56.dp))
-        Spacer(modifier = Modifier.height(12.dp))
-        Text("No hay temporizadores activos", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-        Spacer(modifier = Modifier.height(6.dp))
-        Text("Toca el botón + para crear tu primer temporizador", color = Color.Gray, textAlign = TextAlign.Center)
-    }
-}
-
-@Composable
 private fun TimerCard(
     timer: ActiveTimer,
     onPauseResume: () -> Unit,
     onRestart: () -> Unit,
     onRemove: () -> Unit
 ) {
-    Card(
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+    AppCard {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -147,7 +130,6 @@ private fun TimerCard(
                 }
             }
         }
-    }
 }
 
 @Composable

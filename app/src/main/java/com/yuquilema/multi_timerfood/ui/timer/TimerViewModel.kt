@@ -51,8 +51,7 @@ class TimerViewModel(application: Application) : AndroidViewModel(application) {
 
     // NUEVO: reanudar, calculando lo que falta
     fun reanudarTimer(timer: Timer) = viewModelScope.launch {
-        val transcurridoSeg = ((System.currentTimeMillis() - timer.tiempoInicioMillis) / 1000).toInt()
-        val restante = (timer.duracionSegundos - transcurridoSeg).coerceAtLeast(0)
+        val restante = remainingSeconds(timer)
         timer.estado = "RUNNING"
         timer.tiempoInicioMillis = System.currentTimeMillis()
         repository.update(timer)
@@ -66,9 +65,14 @@ class TimerViewModel(application: Application) : AndroidViewModel(application) {
         // Si está corriendo, hay que reprogramar la alarma en el canal nuevo
         if (timer.estado == "RUNNING") {
             // AlarmScheduler.cancelar(appContext, timer.id, timer.sonidoNotificacion)
-            val transcurridoSeg = ((System.currentTimeMillis() - timer.tiempoInicioMillis) / 1000).toInt()
-            val restante = (timer.duracionSegundos - transcurridoSeg).coerceAtLeast(0)
+            val restante = remainingSeconds(timer)
             // AlarmScheduler.programar(appContext, timer, restante, sonido)
         }
+    }
+
+    /** Segundos restantes de un timer en curso según su tiempo de inicio. */
+    private fun remainingSeconds(timer: Timer): Int {
+        val transcurridoSeg = ((System.currentTimeMillis() - timer.tiempoInicioMillis) / 1000).toInt()
+        return (timer.duracionSegundos - transcurridoSeg).coerceAtLeast(0)
     }
 }
