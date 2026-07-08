@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 public class RegisterActivity extends Activity {
+
+    private static final String TAG = "RegisterActivity";
 
     private TextInputLayout tilNombre, tilCorreo, tilPassword, tilConfirmarPassword;
 
@@ -51,21 +54,31 @@ public class RegisterActivity extends Activity {
 
                 if (etCorreo.getText() == null || etNombre.getText() == null || etPassword.getText() == null) return;
 
-                Usuario existente = db.usuarioDao().buscarPorCorreo(
-                        etCorreo.getText().toString().trim());
+                try {
+                    Usuario existente = db.usuarioDao().buscarPorCorreo(
+                            etCorreo.getText().toString().trim());
 
-                if (existente != null) {
-                    tilCorreo.setError("Este correo ya está registrado");
+                    if (existente != null) {
+                        tilCorreo.setError("Este correo ya está registrado");
+                        return;
+                    }
+
+                    Usuario usuario = new Usuario();
+
+                    usuario.setNombre(etNombre.getText().toString().trim());
+                    usuario.setCorreo(etCorreo.getText().toString().trim());
+                    usuario.setPassword(etPassword.getText().toString());
+
+                    db.usuarioDao().insertarUsuario(usuario);
+                } catch (Exception e) {
+                    Log.e(TAG, "Error al registrar el usuario", e);
+                    Toast.makeText(
+                            RegisterActivity.this,
+                            "No se pudo completar el registro. Intente nuevamente.",
+                            Toast.LENGTH_LONG
+                    ).show();
                     return;
                 }
-
-                Usuario usuario = new Usuario();
-
-                usuario.setNombre(etNombre.getText().toString().trim());
-                usuario.setCorreo(etCorreo.getText().toString().trim());
-                usuario.setPassword(etPassword.getText().toString());
-
-                db.usuarioDao().insertarUsuario(usuario);
 
                 Toast.makeText(
                         RegisterActivity.this,

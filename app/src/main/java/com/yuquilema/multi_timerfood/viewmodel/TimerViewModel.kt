@@ -1,7 +1,11 @@
 package com.yuquilema.multi_timerfood.viewmodel
 
 import android.app.Application
+import android.util.Log
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.yuquilema.multi_timerfood.AppDatabase
@@ -22,15 +26,34 @@ class TimerViewModel(application: Application) : AndroidViewModel(application) {
     // Historial persistido (leído desde Room; se refresca tras cada cambio).
     val history = mutableStateListOf<TimerHistoryItem>()
 
+    // Último error de persistencia, expuesto para que la UI pueda mostrarlo.
+    // Es null cuando no hay error pendiente.
+    var errorMessage by mutableStateOf<String?>(null)
+        private set
+
     private val tickJobs = mutableMapOf<String, Job>()
 
     init {
         refreshHistory()
     }
 
+    /** La UI llama esto una vez que mostró el error, para no repetirlo. */
+    fun consumeError() {
+        errorMessage = null
+    }
+
     private fun refreshHistory() {
+        // Cargamos primero en una lista local: si la consulta falla no dejamos
+        // el historial en blanco por haber limpiado antes de leer.
+        val items = try {
+            dao.obtenerTodos()
+        } catch (e: Exception) {
+            Log.e(TAG, "No se pudo cargar el historial", e)
+            errorMessage = "No se pudo cargar el historial"
+            return
+        }
         history.clear()
-        history.addAll(dao.obtenerTodos())
+        history.addAll(items)
     }
 
     fun createTimer(
@@ -96,22 +119,44 @@ class TimerViewModel(application: Application) : AndroidViewModel(application) {
         item.totalSeconds = timer.totalSeconds
         item.isCompleted = completed
         item.dateMillis = System.currentTimeMillis()
-        dao.insertar(item)
+        try {
+            dao.insertar(item)
+        } catch (e: Exception) {
+            Log.e(TAG, "No se pudo guardar en el historial", e)
+            errorMessage = "No se pudo guardar en el historial"
+            return
+        }
         refreshHistory()
     }
 
     fun deleteHistoryItem(item: TimerHistoryItem) {
-        dao.eliminar(item)
+        try {
+            dao.eliminar(item)
+        } catch (e: Exception) {
+            Log.e(TAG, "No se pudo eliminar el elemento del historial", e)
+            errorMessage = "No se pudo eliminar el elemento"
+            return
+        }
         refreshHistory()
     }
 
     fun clearHistory() {
-        dao.eliminarTodos()
+        try {
+            dao.eliminarTodos()
+        } catch (e: Exception) {
+            Log.e(TAG, "No se pudo borrar el historial", e)
+            errorMessage = "No se pudo borrar el historial"
+            return
+        }
         refreshHistory()
     }
 
     override fun onCleared() {
         super.onCleared()
         tickJobs.values.forEach { it.cancel() }
+    }
+
+    companion object {
+        private const val TAG = "TimerViewModel"
     }
 }
