@@ -37,6 +37,14 @@ class TimerListActivity : AppCompatActivity() {
             adapter.submitList(lista)
         }
 
+        // Muestra los errores de persistencia en vez de dejarlos pasar en silencio.
+        viewModel.error.observe(this) { mensaje ->
+            if (mensaje != null) {
+                Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
+                viewModel.clearError()
+            }
+        }
+
         binding.fabAgregar.setOnClickListener {
             mostrarFormularioNuevoTimer()
         }

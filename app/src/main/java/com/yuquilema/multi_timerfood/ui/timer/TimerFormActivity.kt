@@ -50,6 +50,14 @@ class TimerFormActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener { finish() }
 
+        // Muestra los errores de persistencia en vez de dejarlos pasar en silencio.
+        viewModel.error.observe(this) { mensaje ->
+            if (mensaje != null) {
+                Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
+                viewModel.clearError()
+            }
+        }
+
         timerId = intent.getIntExtra(EXTRA_TIMER_ID, -1)
 
         if (timerId != -1) {

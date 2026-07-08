@@ -3,6 +3,7 @@ package com.yuquilema.multi_timerfood;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.Toast;
@@ -13,6 +14,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity {
+
+    private static final String TAG = "LoginActivity";
 
     private TextInputLayout tilCorreo, tilPassword;
 
@@ -98,7 +101,18 @@ public class LoginActivity extends Activity {
         String correo = etCorreo.getText().toString().trim();
         String password = etPassword.getText().toString();
 
-        Usuario usuario = db.usuarioDao().login(correo, password);
+        Usuario usuario;
+        try {
+            usuario = db.usuarioDao().login(correo, password);
+        } catch (Exception e) {
+            Log.e(TAG, "Error al iniciar sesión", e);
+            Toast.makeText(
+                    this,
+                    "Ocurrió un error al iniciar sesión. Intente nuevamente.",
+                    Toast.LENGTH_LONG
+            ).show();
+            return;
+        }
 
         if (usuario != null) {
 
