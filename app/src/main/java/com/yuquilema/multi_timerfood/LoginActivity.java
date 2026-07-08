@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.yuquilema.multi_timerfood.security.PasswordHasher;
 
 import android.widget.TextView;
 
@@ -98,9 +99,9 @@ public class LoginActivity extends Activity {
         String correo = etCorreo.getText().toString().trim();
         String password = etPassword.getText().toString();
 
-        Usuario usuario = db.usuarioDao().login(correo, password);
+        Usuario usuario = db.usuarioDao().buscarPorCorreo(correo);
 
-        if (usuario != null) {
+        if (usuario != null && PasswordHasher.verify(password, usuario.getPassword())) {
 
             Toast.makeText(
                     this,
