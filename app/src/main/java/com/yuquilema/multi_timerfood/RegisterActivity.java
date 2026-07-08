@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.yuquilema.multi_timerfood.security.PasswordHasher;
 
 import java.util.Objects;
 
@@ -63,7 +64,7 @@ public class RegisterActivity extends Activity {
 
                 usuario.setNombre(etNombre.getText().toString().trim());
                 usuario.setCorreo(etCorreo.getText().toString().trim());
-                usuario.setPassword(etPassword.getText().toString());
+                usuario.setPassword(PasswordHasher.hash(etPassword.getText().toString()));
 
                 db.usuarioDao().insertarUsuario(usuario);
 
