@@ -4,13 +4,13 @@ import android.os.Bundle;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Patterns;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.yuquilema.multi_timerfood.util.AuthValidator;
 
 import java.util.Objects;
 
@@ -110,25 +110,8 @@ public class RegisterActivity extends Activity {
             return false;
         }
 
-        if (correo.isEmpty()) {
-            tilCorreo.setError("El correo es obligatorio");
-            return false;
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
-            tilCorreo.setError("Ingrese un correo válido");
-            return false;
-        }
-
-        if (password.isEmpty()) {
-            tilPassword.setError("La contraseña es obligatoria");
-            return false;
-        }
-
-        if (password.length() < 6) {
-            tilPassword.setError("La contraseña debe tener al menos 6 caracteres");
-            return false;
-        }
+        if (!AuthValidator.validateEmail(tilCorreo, correo)) return false;
+        if (!AuthValidator.validatePassword(tilPassword, password)) return false;
 
         if (confirmar.isEmpty()) {
             tilConfirmarPassword.setError("Confirme la contraseña");

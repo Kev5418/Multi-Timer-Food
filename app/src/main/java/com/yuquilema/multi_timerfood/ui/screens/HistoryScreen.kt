@@ -25,8 +25,12 @@ import androidx.compose.ui.unit.sp
 import com.yuquilema.multi_timerfood.data.TimerHistoryItem
 import com.yuquilema.multi_timerfood.ui.AppColors
 import com.yuquilema.multi_timerfood.ui.components.ALL_CATEGORIES
+import com.yuquilema.multi_timerfood.ui.components.AppCard
 import com.yuquilema.multi_timerfood.ui.components.AppTopBar
 import com.yuquilema.multi_timerfood.ui.components.CategoryChip
+import com.yuquilema.multi_timerfood.ui.components.EmptyState
+import com.yuquilema.multi_timerfood.ui.components.appOutlinedTextFieldColors
+import com.yuquilema.multi_timerfood.util.TimeFormatter
 import com.yuquilema.multi_timerfood.viewmodel.TimerViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -73,10 +77,7 @@ fun HistoryScreen(timerViewModel: TimerViewModel) {
                 singleLine = true,
                 shape = RoundedCornerShape(14.dp),
                 modifier = Modifier.weight(1f),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = AppColors.OrangePrimary,
-                    unfocusedBorderColor = AppColors.BorderColor
-                )
+                colors = appOutlinedTextFieldColors()
             )
             Spacer(modifier = Modifier.width(8.dp))
             Box {
@@ -93,15 +94,14 @@ fun HistoryScreen(timerViewModel: TimerViewModel) {
         }
 
         if (filtered.isEmpty()) {
-            Column(
-                modifier = Modifier.fillMaxSize().padding(32.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Icon(Icons.Filled.History, contentDescription = null, tint = AppColors.TextSecondary, modifier = Modifier.size(48.dp))
-                Spacer(modifier = Modifier.height(8.dp))
-                Text("Sin historial todavía", color = AppColors.TextSecondary)
-            }
+            EmptyState(
+                icon = Icons.Filled.History,
+                title = "Sin historial todavía",
+                iconTint = AppColors.TextSecondary,
+                iconSize = 48.dp,
+                titleColor = AppColors.TextSecondary,
+                titleFontWeight = FontWeight.Normal,
+            )
         } else {
             LazyColumn(
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp),
@@ -124,12 +124,7 @@ fun HistoryScreen(timerViewModel: TimerViewModel) {
 @Composable
 private fun HistoryCard(item: TimerHistoryItem, onDelete: () -> Unit) {
     val dateFormat = remember { SimpleDateFormat("MMM d, yyyy HH:mm", Locale.getDefault()) }
-    Card(
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+    AppCard {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -148,7 +143,7 @@ private fun HistoryCard(item: TimerHistoryItem, onDelete: () -> Unit) {
                         modifier = Modifier.size(22.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(formatDuration(item.totalSeconds), color = AppColors.OrangePrimary, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                    Text(TimeFormatter.minutesSeconds(item.totalSeconds), color = AppColors.OrangePrimary, fontWeight = FontWeight.Bold, fontSize = 18.sp)
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -170,11 +165,4 @@ private fun HistoryCard(item: TimerHistoryItem, onDelete: () -> Unit) {
                 )
             }
         }
-    }
-}
-
-private fun formatDuration(totalSeconds: Int): String {
-    val m = totalSeconds / 60
-    val s = totalSeconds % 60
-    return String.format(Locale.getDefault(), "%d:%02d", m, s)
 }
