@@ -1,16 +1,18 @@
 package com.yuquilema.multi_timerfood;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.yuquilema.multi_timerfood.Validaciones;
 
-import android.widget.TextView;
+import java.util.Objects;
 
 public class LoginActivity extends Activity {
 
@@ -42,19 +44,14 @@ public class LoginActivity extends Activity {
         btnLogin.setOnClickListener(v -> {
 
             if (validateInputs()) {
-
                 loginUser();
-
             }
 
         });
 
         tvIrRegistro.setOnClickListener(v -> {
 
-            Intent intent = new Intent(LoginActivity.this,
-                    RegisterActivity.class);
-
-            startActivity(intent);
+            startActivity(new Intent(this, RegisterActivity.class));
 
         });
 
@@ -65,26 +62,15 @@ public class LoginActivity extends Activity {
         tilCorreo.setError(null);
         tilPassword.setError(null);
 
-        if (etCorreo.getText() == null || etPassword.getText() == null) return false;
-        String correo = etCorreo.getText().toString().trim();
-        String password = etPassword.getText().toString();
+        String correo = Objects.requireNonNull(etCorreo.getText()).toString().trim();
+        String password = Objects.requireNonNull(etPassword.getText()).toString();
 
-        if (correo.isEmpty()) {
-            tilCorreo.setError("El correo es obligatorio");
-            return false;
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+        if (!Validaciones.validarCorreo(correo)) {
             tilCorreo.setError("Ingrese un correo válido");
             return false;
         }
 
-        if (password.isEmpty()) {
-            tilPassword.setError("La contraseña es obligatoria");
-            return false;
-        }
-
-        if (password.length() < 6) {
+        if (!Validaciones.validarPassword(password)) {
             tilPassword.setError("La contraseña debe tener al menos 6 caracteres");
             return false;
         }
@@ -94,9 +80,8 @@ public class LoginActivity extends Activity {
 
     private void loginUser() {
 
-        if (etCorreo.getText() == null || etPassword.getText() == null) return;
-        String correo = etCorreo.getText().toString().trim();
-        String password = etPassword.getText().toString();
+        String correo = Objects.requireNonNull(etCorreo.getText()).toString().trim();
+        String password = Objects.requireNonNull(etPassword.getText()).toString();
 
         Usuario usuario = db.usuarioDao().login(correo, password);
 
@@ -108,7 +93,7 @@ public class LoginActivity extends Activity {
                     Toast.LENGTH_SHORT
             ).show();
 
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
 
             intent.addFlags(
                     Intent.FLAG_ACTIVITY_NEW_TASK |
@@ -124,5 +109,4 @@ public class LoginActivity extends Activity {
         }
 
     }
-
 }

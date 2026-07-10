@@ -1,16 +1,16 @@
 package com.yuquilema.multi_timerfood;
 
-import android.os.Bundle;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Patterns;
+import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.yuquilema.multi_timerfood.Validaciones;
 
 import java.util.Objects;
 
@@ -49,8 +49,6 @@ public class RegisterActivity extends Activity {
 
             if (validateInputs()) {
 
-                if (etCorreo.getText() == null || etNombre.getText() == null || etPassword.getText() == null) return;
-
                 Usuario existente = db.usuarioDao().buscarPorCorreo(
                         etCorreo.getText().toString().trim());
 
@@ -67,27 +65,19 @@ public class RegisterActivity extends Activity {
 
                 db.usuarioDao().insertarUsuario(usuario);
 
-                Toast.makeText(
-                        RegisterActivity.this,
+                Toast.makeText(this,
                         "Usuario registrado correctamente",
-                        Toast.LENGTH_SHORT
-                ).show();
+                        Toast.LENGTH_SHORT).show();
 
-                startActivity(new Intent(RegisterActivity.this,
-                        LoginActivity.class));
-
+                startActivity(new Intent(this, LoginActivity.class));
                 finish();
             }
 
         });
 
         tvIrLogin.setOnClickListener(v -> {
-
-            startActivity(new Intent(RegisterActivity.this,
-                    LoginActivity.class));
-
+            startActivity(new Intent(this, LoginActivity.class));
             finish();
-
         });
 
     }
@@ -99,33 +89,22 @@ public class RegisterActivity extends Activity {
         tilPassword.setError(null);
         tilConfirmarPassword.setError(null);
 
-        if (etNombre.getText() == null || etCorreo.getText() == null || etPassword.getText() == null || etConfirmarPassword.getText() == null) return false;
-        String nombre = etNombre.getText().toString().trim();
-        String correo = etCorreo.getText().toString().trim();
-        String password = etPassword.getText().toString();
-        String confirmar = etConfirmarPassword.getText().toString();
+        String nombre = Objects.requireNonNull(etNombre.getText()).toString().trim();
+        String correo = Objects.requireNonNull(etCorreo.getText()).toString().trim();
+        String password = Objects.requireNonNull(etPassword.getText()).toString();
+        String confirmar = Objects.requireNonNull(etConfirmarPassword.getText()).toString();
 
-        if (nombre.isEmpty()) {
+        if (!Validaciones.validarNombre(nombre)) {
             tilNombre.setError("Ingrese su nombre");
             return false;
         }
 
-        if (correo.isEmpty()) {
-            tilCorreo.setError("El correo es obligatorio");
-            return false;
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+        if (!Validaciones.validarCorreo(correo)) {
             tilCorreo.setError("Ingrese un correo válido");
             return false;
         }
 
-        if (password.isEmpty()) {
-            tilPassword.setError("La contraseña es obligatoria");
-            return false;
-        }
-
-        if (password.length() < 6) {
+        if (!Validaciones.validarPassword(password)) {
             tilPassword.setError("La contraseña debe tener al menos 6 caracteres");
             return false;
         }
@@ -135,12 +114,11 @@ public class RegisterActivity extends Activity {
             return false;
         }
 
-        if (!Objects.equals(password, confirmar)) {
+        if (!password.equals(confirmar)) {
             tilConfirmarPassword.setError("Las contraseñas no coinciden");
             return false;
         }
 
         return true;
     }
-
 }

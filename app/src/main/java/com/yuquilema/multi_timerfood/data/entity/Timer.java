@@ -19,6 +19,8 @@ public class Timer {
     private String sonidoNotificacion = "default"; // NUEVO
     private long tiempoInicioMillis = 0L;
 
+
+
     public Timer() {
     }
 
@@ -98,6 +100,7 @@ public class Timer {
         this.sonido = sonido;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,6 +113,18 @@ public class Timer {
     public void setSonidoNotificacion(String sonidoNotificacion) { this.sonidoNotificacion = sonidoNotificacion; }
 
     public long getTiempoInicioMillis() { return tiempoInicioMillis; }
+    private int segundosRestantes = 0;
+    private boolean sonidoActivado = true;
+    private boolean vibracionActivada = true;
+
+    public int getSegundosRestantes() { return segundosRestantes; }
+    public void setSegundosRestantes(int segundosRestantes) { this.segundosRestantes = segundosRestantes; }
+
+    public boolean isSonidoActivado() { return sonidoActivado; }
+    public void setSonidoActivado(boolean sonidoActivado) { this.sonidoActivado = sonidoActivado; }
+
+    public boolean isVibracionActivada() { return vibracionActivada; }
+    public void setVibracionActivada(boolean vibracionActivada) { this.vibracionActivada = vibracionActivada; }
     public void setTiempoInicioMillis(long tiempoInicioMillis) { this.tiempoInicioMillis = tiempoInicioMillis; }
 
     @Override

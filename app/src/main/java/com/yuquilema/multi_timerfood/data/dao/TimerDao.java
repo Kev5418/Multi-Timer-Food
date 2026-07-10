@@ -12,11 +12,14 @@ import com.yuquilema.multi_timerfood.data.entity.Timer;
 
 import java.util.List;
 
+
 @Dao
 public interface TimerDao {
 
+    // Ahora devuelve el id generado (antes era void); lo necesitamos para
+    // crear el ActiveTimer en memoria con el mismo id que Room le asignó.
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Timer timer);
+    long insert(Timer timer);
 
     @Update
     void update(Timer timer);
@@ -30,4 +33,7 @@ public interface TimerDao {
     @Query("SELECT * FROM timers WHERE id = :timerId")
     Timer getById(int timerId);
 
+    // NUEVO: timers que quedaron corriendo o pausados la última vez que se cerró la app.
+    @Query("SELECT * FROM timers WHERE estado = 'RUNNING' OR estado = 'PAUSED' ORDER BY id ASC")
+    List<Timer> getActivos();
 }

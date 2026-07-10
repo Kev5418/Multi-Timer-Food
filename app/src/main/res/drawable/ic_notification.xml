@@ -1,0 +1,21 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="#FFFFFF">
+    <!--
+        Ícono de reloj/alarma. Las notificaciones en Android ignoran los colores
+        y solo usan la silueta (alpha) para pintar el ícono en la barra de estado,
+        por eso no importa el color exacto que pongamos aquí.
+    -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M12,2c-5.52,0 -10,4.48 -10,10s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2zM12,20c-4.42,0 -8,-3.58 -8,-8s3.58,-8 8,-8 8,3.58 8,8 -3.58,8 -8,8z"/>
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M12.5,7L11,7v6l5.25,3.15 0.75,-1.23 -4.5,-2.67z"/>
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M7.88,3.39L6.6,1.86 2,5.71l1.29,1.53zM17.4,1.86L16.12,3.39l4.6,3.88 1.29,-1.53z"/>
+</vector>

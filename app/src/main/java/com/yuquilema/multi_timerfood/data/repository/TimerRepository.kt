@@ -8,15 +8,16 @@ class TimerRepository(private val timerDao: TimerDao) {
 
     val allTimers: LiveData<List<Timer>> = timerDao.getAll()
 
-    suspend fun insert(timer: Timer) = timerDao.insert(timer)
+    // Devuelve el id autogenerado por Room (antes no devolvía nada).
+    suspend fun insert(timer: Timer): Int = timerDao.insert(timer).toInt()
+
     suspend fun update(timer: Timer) = timerDao.update(timer)
     suspend fun delete(timer: Timer) = timerDao.delete(timer)
-
-    // NUEVO
     suspend fun getById(id: Int): Timer? = timerDao.getById(id)
 
-    // NUEVO — como no existe timer_history, por ahora solo cambia el estado.
-    // Si luego quieres historial real, se agrega una tabla aparte; dime y la armamos.
+    // NUEVO: timers que estaban RUNNING o PAUSED cuando se cerró la app.
+    suspend fun getActivos(): List<Timer> = timerDao.getActivos()
+
     suspend fun finalizarTimer(id: Int) {
         val timer = timerDao.getById(id) ?: return
         timer.estado = "FINISHED"

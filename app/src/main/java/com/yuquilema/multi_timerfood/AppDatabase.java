@@ -10,7 +10,7 @@ import com.yuquilema.multi_timerfood.data.entity.Timer;
 import com.yuquilema.multi_timerfood.data.TimerHistoryDao;
 import com.yuquilema.multi_timerfood.data.TimerHistoryItem;
 
-@Database(entities = {Usuario.class, TimerHistoryItem.class, Timer.class}, version = 3, exportSchema = false)
+@Database(entities = {Usuario.class, TimerHistoryItem.class, Timer.class}, version = 4, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract UsuarioDao usuarioDao();
