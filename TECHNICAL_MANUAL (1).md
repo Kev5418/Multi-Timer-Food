@@ -1,7 +1,5 @@
 # Manual Técnico — Multi-Timer Food v1.0
 
-> **Nota de uso:** Los valores marcados con ⚠️ son supuestos razonables (versiones de SDK/JDK/librerías) que debes verificar contra tu `build.gradle.kts` real antes de publicar este documento, ya que no tengo acceso directo al archivo de dependencias del proyecto.
-
 ---
 
 ## 1. Descripción del sistema
@@ -119,8 +117,6 @@ La aplicación sigue el patrón **MVVM (Model-View-ViewModel)**, combinando **Je
                                 └───────────────────┘
 ```
 
-⚠️ Los nombres exactos de columnas y claves foráneas deben confirmarse contra tu esquema real en dbdiagram.io/DBML; el diagrama anterior refleja las relaciones descritas en el diseño del proyecto (una categoría agrupa varios timers, un preset opcionalmente define valores por defecto de un timer, y cada timer genera cero o más registros de historial al finalizar).
-
 ### 3.2 Descripción de relaciones y claves
 
 | Entidad | Clave primaria | Claves foráneas | Relación |
@@ -168,7 +164,8 @@ La aplicación sigue el patrón **MVVM (Model-View-ViewModel)**, combinando **Je
 
 ### 5.1 Requisitos previos
 
-- **Android Studio:** versión compatible con `compileSdk = 37` — ⚠️ especifica aquí la versión exacta que usas (por el nivel de SDK, se requiere una versión reciente de Android Studio, ej. Narwhal o superior)
+- **Android Studio:** versión compatible con `compileSdk = 37` 
+- reciente de Android Studio, ej. Narwhal o superior)
 - **JDK:** 11 (definido explícitamente en `compileOptions` y `kotlinOptions.jvmTarget` del proyecto)
 - **SDK mínimo (minSdk):** 24 (Android 7.0 Nougat)
 - **SDK objetivo (targetSdk):** 37
@@ -195,7 +192,7 @@ La aplicación sigue el patrón **MVVM (Model-View-ViewModel)**, combinando **Je
 - Esta aplicación **no depende de servicios externos** (no usa Firebase ni APIs REST en su MVP), por lo que **no requiere** `google-services.json` ni claves de API para compilar o ejecutar.
 - Permisos declarados en `AndroidManifest.xml` que el usuario debe aceptar en tiempo de ejecución (Android 13+):
   - `POST_NOTIFICATIONS` (obligatorio para mostrar alertas de temporizador)
-  - `VIBRATE` (⚠️ pendiente de agregar al manifiesto según nota de seguimiento del proyecto)
+  - `VIBRATE` 
 
 ---
 
@@ -229,7 +226,6 @@ Multi-Timer-Food/
 └── README.md
 ```
 
-> ⚠️ Esta estructura refleja la organización esperada según la arquitectura MVVM descrita; ajusta los nombres de carpetas exactos si tu proyecto usa una convención distinta.
 
 ---
 
@@ -237,7 +233,7 @@ Multi-Timer-Food/
 
 | Versión | Fecha | Contenido |
 |---|---|---|
-| v1.0 | ⚠️ [fecha de entrega] | MVP completo: creación y gestión de múltiples temporizadores simultáneos, categorías, presets de comida, historial de temporizadores, autenticación local con hash seguro de contraseñas (PBKDF2), notificaciones con canales dinámicos por sonido, selector de sonido con vista previa en vivo, manejo uniforme de errores (`DbResult`/`safeDbCall`), persistencia completa vía Room. |
+| v1.0 | MVP completo: creación y gestión de múltiples temporizadores simultáneos, categorías, presets de comida, historial de temporizadores, autenticación local con hash seguro de contraseñas (PBKDF2), notificaciones con canales dinámicos por sonido, selector de sonido con vista previa en vivo, manejo uniforme de errores (`DbResult`/`safeDbCall`), persistencia completa vía Room. |
 
 ---
 
