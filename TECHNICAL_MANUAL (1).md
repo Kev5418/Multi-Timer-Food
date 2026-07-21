@@ -137,7 +137,7 @@ La aplicación sigue el patrón **MVVM (Model-View-ViewModel)**, combinando **Je
 
 | Categoría | Tecnología | Versión |
 |---|---|---|
-| Lenguaje | Kotlin | gestionado vía `libs.versions.toml` (Version Catalog); ⚠️ confirmar número exacto ahí |
+| Lenguaje | Kotlin | gestionado vía `libs.versions.toml` (Version Catalog); |
 | Framework UI | Jetpack Compose (pantallas principales) + Android Views/XML con ViewBinding (Login, Registro) | BOM de Compose gestionado vía `libs.androidx.compose.bom` |
 | Arquitectura | MVVM | — |
 | Base de datos | Room (`room-runtime`, `room-ktx`, `room-compiler` vía KAPT) | 2.6.1 |
@@ -233,7 +233,7 @@ Multi-Timer-Food/
 
 | Versión | Fecha | Contenido |
 |---|---|---|
-| v1.0 | MVP completo: creación y gestión de múltiples temporizadores simultáneos, categorías, presets de comida, historial de temporizadores, autenticación local con hash seguro de contraseñas (PBKDF2), notificaciones con canales dinámicos por sonido, selector de sonido con vista previa en vivo, manejo uniforme de errores (`DbResult`/`safeDbCall`), persistencia completa vía Room. |
+| v1.0 | 24/07/2026 | MVP completo: creación y gestión de múltiples temporizadores simultáneos, categorías, presets de comida, historial de temporizadores, autenticación local con hash seguro de contraseñas (PBKDF2), notificaciones con canales dinámicos por sonido, selector de sonido con vista previa en vivo, manejo uniforme de errores (`DbResult`/`safeDbCall`), persistencia completa vía Room. |
 
 ---
 
