@@ -161,6 +161,10 @@ Multi-Timer-Food/
 └── README.md
 ```
 
+## 📄 Documentación
+- [Manual Técnico](docs/TECHNICAL_MANUAL.md)
+- [Manual de Usuario](docs/USER_MANUAL.pdf)
+  
 ---
 
 ## Autor
